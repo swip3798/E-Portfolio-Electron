@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Timer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h2 id="time">0.0s</h2>
+    <ul id="list">
+
+    </ul>
+    <script>
+        let time = 0;
+        function count() {
+            time += 0.1;
+            document.getElementById("time").innerHTML = time.toString().slice(0,3) + "s";
+            setTimeout(() => {
+                count();
+            }, 100);
+        }
+        count();
+        const electron = require('electron');
+        const { ipcRenderer } = electron;
+        let ul = document.getElementById('list');
+
+        ipcRenderer.on("round:add", function (e, item) {
+            let li = document.createElement('li');
+            let itemText = document.createTextNode(time.toString().slice(0,3) + "s");
+            li.appendChild(itemText);
+            ul.appendChild(li);
+        });
+    </script>
+</body>
+
+</html>
