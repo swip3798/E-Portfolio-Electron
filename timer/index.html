@@ -16,7 +16,7 @@
         let time = 0;
         function count() {
             time += 0.1;
-            document.getElementById("time").innerHTML = time.toString().slice(0,3) + "s";
+            document.getElementById("time").innerHTML = time.toFixed(1) + "s";
             setTimeout(() => {
                 count();
             }, 100);
@@ -26,9 +26,9 @@
         const { ipcRenderer } = electron;
         let ul = document.getElementById('list');
 
-        ipcRenderer.on("round:add", function (e, item) {
+        ipcRenderer.on('round:add', function (e, item) {
             let li = document.createElement('li');
-            let itemText = document.createTextNode(time.toString().slice(0,3) + "s");
+            let itemText = document.createTextNode(time.toFixed(1) + "s");
             li.appendChild(itemText);
             ul.appendChild(li);
         });
